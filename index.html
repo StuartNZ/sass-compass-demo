@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sass/Compass Dev Demo</title>
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="css/dev-demo.css">
+</head>
+<body>
+    <!-- 1 - CSS Triangles -->
+    <div class="triangle-up"></div>
+    <div class="triangle-down"></div>
+    <div class="triangle-right"></div>
+    <div class="triangle-left"></div>
+    
+    <!-- 2 - Font Sizing -->
+    <p class="font-default"></p>
+    <h1 class="font-h1">H1 Heading</h1>
+    <h2 class="font-h2">
+      H2 Heading
+      <span class="font-subtitle">Smaller subtitle</span>
+  </h2>
+  
+  <!-- 3 - Headings -->
+  <h1 class="headings-h1">H1 Heading</h1>
+  <h2 class="headings-h2">H2 Heading</h2>
+  <h3 class="headings-h3">H3 Heading</h3>
+  <h4 class="headings-h4">H4 Heading</h4>
+  <h5 class="headings-h5">H5 Heading</h5>
+  <h6 class="headings-h6">H6 Heading</h6>
+
+  <!-- 4 - Transitions -->
+  <div class="transition-left"></div>
+  
+  <!-- 5 - RGBA -->
+  <div class="rgba-regular"></div>
+  <div class="rgba-hex"></div>
+  <div class="rgba-fallback"></div>
+  <div class="rgba-fallback-inline"></div>
+  
+  <!-- 6 - IMAGE HELPERS -->
+  <div class="image-regular"></div>
+  <div class="image-inline"></div>
+  
+  <!-- 7 - ASSET CACHING -->
+  <div class="cache-rev"></div>
+  
+  <!-- 8 - SPRITING -->
+  <div class="sprite-regular test-icon-star-small"></div>
+  <div class="sprite-regular test-icon-star-large"></div>
+  <div class="sprite-custom star-small"></div>
+  <div class="sprite-custom star-large"></div>
+  
+  <script>
+  (function(doc){
+    var box = doc.querySelectorAll('.transition-left');
+    box[0].addEventListener('click', function(){
+
+        if(this.className.indexOf('animate') !== -1) {
+            this.classList.remove('animate');
+            return;
+        }
+
+        this.classList.add('animate');
+        
+    }, false);
+})(document);
+</script>
+<script src="http://localhost:9998/livereload.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+@import "compass/css3";
+@import "compass/utilities";
+@import "ceaser-easing";
+@import "rgbapng";
+
+//===== UTILS =========
+@mixin css-triangle ($direction: "down", $size: 20px, $color: #000) {
+  width: 0; 
+	height: 0;
+	border-left: $size solid #{setTriangleColor($direction, "left", $color)};
+	border-right: $size solid #{setTriangleColor($direction, "right", $color)};
+	border-bottom: $size solid #{setTriangleColor($direction, "bottom", $color)};
+	border-top: $size solid #{setTriangleColor($direction, "top", $color)};
+}
+//Util Function for css-triangle mixin
+@function setTriangleColor($direction, $side, $color) {
+	@if $direction == "left" and $side == "right" 
+	or  $direction == "right" and $side == "left" 
+	or $direction == "down" and $side == "top" 
+	or $direction == "up" and $side == "bottom" {
+		@return $color
+	} @else {
+		@return "transparent";
+	}
+}
+//========================================================
+//Font Size calculation : ems
+$font-base-size: 16px;
+//Font Size calculation : ems
+@function em($target, $context: $font-base-size, $unitless: false) {
+	@if $target == 0 { @return 0; }
+
+	//Determine whether we want line-height unitless or not
+	$result: $target / $context;
+	@if $unitless == true { 
+		@return $result; 
+	} @else { 
+		@return $result + 0em; 
+	}
+}
+//=========================================================
+@mixin square-dims($size) {
+	width: $size;
+	height: $size;
+}
+
+// 1 CSS TRIANGLE MIXIN ================== 
+[class*="triangle-"] {
+  margin-bottom: 10px;
+  display: none;
+}
+.triangle-up {
+  @include css-triangle('up');
+}
+.triangle-down {
+  @include css-triangle('down', 10px, red);
+}
+.triangle-right {
+  @include css-triangle('right', 25px, #672789);
+}
+.triangle-left {
+  @include css-triangle('left', $color: pink);
+}
+
+// 2 FONT SIZING ================== 
+[class*="font-"] {
+  margin-bottom: 10px;
+  display: none;
+}
+.font-h1 {
+  font-size: em(28px);
+}
+.font-h2 {
+  font-size: em(24px);
+}
+.font-subtitle {
+  font-size: em(16px, 24px);
+  display: inline-block;
+  margin-left: 0.5em;
+}
+
+// 3 HEADINGS CONVENIENCE METHOD ==================
+// Compass Documentation - http://compass-style.org/reference/compass/helpers/selectors/
+[class*="headings-"] {
+  margin-bottom: 10px;
+  display: none;
+}
+#{headings()} {
+	color: red;
+}
+#{headings(2,2)} {
+	color: green;
+}
+#{headings(3,5)} {
+	color: blue;
+}
+
+// 4 CEASER EASING ================== 
+//Easing - http://jqueryui.com/resources/demos/effect/easing.html
+//Ceaser Easing - http://matthewlein.com/ceaser/
+//Compass Plugin - https://github.com/jhardy/compass-ceaser-easing
+[class*="transition-"] {
+  @include square-dims(50px);
+  //@include ceaser-transition($ease-in, margin-left, 2s);
+  @include ceaser-transition($easeInOutExpo, margin-left, 2s);
+  margin-left: 0;
+  margin-bottom: 10px;
+  background-color: red;
+  display: none;
+}
+.animate {
+	margin-left: 600px;
+}
+
+// 5 RGBA ================== 
+// Compass Plugin - https://github.com/aaronrussell/compass-rgbapng
+[class*="rgba-"] {
+  @include square-dims(50px);
+  margin-bottom: 10px;
+  display: none;
+}
+.rgba-regular {
+	background: rgba(0,0,0, 0.5);
+}
+.rgba-hex {
+	background: rgba(#000, 0.5);
+}
+.rgba-fallback {
+	@include rgba-background(rgba(#000,0.5));
+}
+.rgba-fallback-inline {
+	@include rgba-background-inline(rgba(#000,0.5));
+}
+
+// 6 COMPASS INLINE IMAGES =================
+// Documentation - http://compass-style.org/reference/compass/helpers/inline-data/
+[class*="image-"] {
+  margin-bottom: 10px;
+  display: none;
+}
+.image-regular {
+	width: 170px;
+	height: 83px;
+	background: url(../images/interface/logo/logo-main.png);
+}
+.image-inline {
+	width: 170px;
+	height: 83px;
+	background: inline-image('interface/logo/logo-main.png');
+}
+
+// 7 COMPASS ASSET CACHE BUSTING =================
+// Why add Expires Headers - http://developer.yahoo.com/blogs/ydn/posts/2007/05/high_performanc_2/
+// Why filename revving is good http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/
+// Revving algorithm and images path setup in /build/config.rb
+[class*="cache-"] {
+  margin-bottom: 10px;
+  display: none;
+}
+.cache-rev {
+	width: 170px;
+	height: 83px;
+	background: image-url('interface/logo/logo-main.png');
+}
+
+// 8 COMPASS SPRITING =================
+// Documentation - http://compass-style.org/reference/compass/helpers/sprites/
+// Tutorial - http://compass-style.org/help/tutorials/spriting/
+[class*="sprite-"] {
+  margin-bottom: 10px;
+  //display: none;
+}
+//$test-icon-layout: horizontal;
+//$test-icon-layout: smart;
+@import 'interface/ico/test-icon/*.png';
+//AUTO SPRITING
+@include all-test-icon-sprites;
+
+//CUSTOM SPRITING
+.star-small {
+	@include test-icon-sprite(star-small);
+	width: test-icon-sprite-width(star-small);
+	height: test-icon-sprite-height(star-small);
+}
+.star-large {
+	@include test-icon-sprite(star-large);
+	width: test-icon-sprite-width(star-large);
+	height: test-icon-sprite-height(star-large);
+}
